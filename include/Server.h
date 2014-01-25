@@ -11,67 +11,14 @@
 
 class Server : public Thread{
 public:
-	Server(const std::string& clientAddress, uint16_t clientPort) : mServerAddress(clientAddress), mServerPort(clientPort){
-		start();
-	}
+	Server(const std::string& clientAddress, uint16_t clientPort);
 
 private:
-	void run(){
-		bool connected = false;
+	Socket* mSocket;
 
-		LOGD("Connecting to server...");
+	void reconnect();
 
-		Socket* socket = new Socket;
-
-		while(!connected){
-			connected = socket->connectToServer(mServerAddress, mServerPort);
-		}
-
-		LOGD("Recieving connect command...");
-
-		Packet p;
-
-		socket->recvPacket(p);
-
-		std::string remoteUrl;
-		uint16_t remotePort;
-
-		p.read(&remoteUrl);
-		p.read(&remotePort);
-
-		LOGD("Connect command recieved: url=\"%s\"; port=%u", remoteUrl.c_str(), remotePort);
-
-		Socket proxySocket;
-
-		LOGD("Connecting to proxeh");
-		if(proxySocket.connectToServer(remoteUrl, remotePort)){
-			LOGD("Connected to remote server");
-
-			p.clear();
-			p.write(true);
-
-			socket->sendPacket(p);
-		}
-		else{
-			LOGE("Error connecting to remote server");
-
-			p.clear();
-			p.write(true);
-
-			socket->sendPacket(p);
-
-			return;
-		}
-
-
-		LOGD("Routing data..");
-
-		SocketProxy proxy(&proxySocket, socket);
-
-		proxy.wait();
-
-		LOGD("Server finished");
-	}
+	void run();
 
 	std::string mServerAddress;
 	uint16_t mServerPort;

@@ -1,5 +1,5 @@
-#ifndef WT_BUFFER_H
-#define WT_BUFFER_H
+#ifndef TCPBD_BUFFER_H
+#define TCPBD_BUFFER_H
 
 #include <td/td.h>
 #include <stdint.h>
@@ -178,4 +178,4 @@ typedef Buffer<float> FloatBuffer;
 
 typedef Buffer<uint8_t> ByteBuffer;
 
-#endif
+#endif // </TCPBD_BUFFER_H>

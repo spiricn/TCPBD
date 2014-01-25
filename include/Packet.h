@@ -30,33 +30,27 @@ public:
 
 	void write(const void* data, uint32_t size);
 
-	template<class T>
-	void read(T* val){
-		mData.get( reinterpret_cast<uint8_t*>(val), sizeof(T) );
-	}
-
-	void read(void* data, uint32_t size);
-
 	void write(const std::string& data);
 
-	template<class T>
-	T read();
+	bool read(std::string* val);
 
-	void read(std::string* val);
+	template<class T>
+	bool read(T* val){
+		if((mData.getCapacity() - mData.tellg()) < sizeof(T)){
+			return false;
+		}
+
+		mData.get( reinterpret_cast<uint8_t*>(val), sizeof(T) );
+
+		return true;
+	}
+
+	bool read(void* data, uint32_t size);
 
 private:
 	ByteBuffer mData;
 
 }; // </Packet>
-
-
-template<class T>
-T Packet::read(){
-	T res;
-	read(&res);
-
-	return res;
-}
 
 #endif // </WT_PACKET_H>
 

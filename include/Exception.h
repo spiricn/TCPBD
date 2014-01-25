@@ -30,10 +30,10 @@ public:
 
 }; // </Exception>
 
-#define WT_THROW(fmt, ...) do{ throw Exception(__FUNCTION__, __FILE__, __LINE__, fmt, ##__VA_ARGS__); }while(0)
+#define TCPBD_THROW(fmt, ...) do{ throw Exception(__FUNCTION__, __FILE__, __LINE__, fmt, ##__VA_ARGS__); }while(0)
 
-#define WT_ABORT(fmt, ...) do{ LOGE(fmt, ##__VA_ARGS__); abort(); }while(0)
+#define TCPBD_ABORT(fmt, ...) do{ LOGE(fmt, ##__VA_ARGS__); abort(); }while(0)
 
-#define WT_ASSERT(val, fmt, ...) do{ if(!(val)){ WT_THROW(fmt, __VA_ARGS__);} }while(0)
+#define TCPBD_ASSERT(val, fmt, ...) do{ if(!(val)){ WT_THROW(fmt, __VA_ARGS__);} }while(0)
 
 #endif

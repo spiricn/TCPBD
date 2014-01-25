@@ -131,7 +131,7 @@ bool Socket::connectToServer(const std::string& address, uint16_t port, float ti
 
 	SOCKADDR_IN serverAddr;
 	if(initAddress(serverAddr, address, port, true) == false){
-		throw new std::exception(getErrorString().c_str());
+		TCPBD_THROW(getErrorString().c_str());
 	}
 
 	int res = SOCKET_ERROR;
@@ -154,17 +154,17 @@ void Socket::init(const std::string& address, unsigned short port)
 	close();
 
 	if(initAddress(mAddr, address, port, true) == false){
-		throw new std::exception(getErrorString().c_str());
+		TCPBD_THROW(getErrorString().c_str());
 	}
 
 	mSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	if(mSocket == SOCKET_ERROR){
-		throw new std::exception(getErrorString().c_str());
+		TCPBD_THROW(getErrorString().c_str());
 	}
 
 	if( bind(mSocket, (SOCKADDR*)&mAddr, sizeof(SOCKADDR)) == SOCKET_ERROR ){
-		throw new std::exception(getErrorString().c_str());
+		TCPBD_THROW(getErrorString().c_str());
 	}
 }
 
@@ -178,7 +178,7 @@ void Socket::sendBfr(const void* bfr, int size){
 		s = send(mSocket, (const char*)bfr+bytesWritten, size-bytesWritten, 0);
 
 		if(s<=0){
-			throw new std::exception(getErrorString().c_str());
+			TCPBD_THROW(getErrorString().c_str());
 		}
 
 		bytesWritten += s;
@@ -193,7 +193,7 @@ void Socket::recvBfr(void* bfr, int size){
 		r = recv(mSocket, (char*)bfr+bytesRead, size-bytesRead, 0);
 
 		if(r<=0){
-			throw new std::exception(getErrorString().c_str());
+			TCPBD_THROW(getErrorString().c_str());
 		}
 
 		bytesRead += r;
@@ -248,7 +248,7 @@ bool Socket::connectToServer(const std::string& address, uint16_t port, float ti
 
 	server = gethostbyname(address.c_str());
 	if (server == NULL) {
-		WT_THROW("invalid host name");
+		TCPBD_THROW("invalid host name");
 	}
 	bzero((char *) &serv_addr, sizeof(serv_addr));
 	serv_addr.sin_family = AF_INET;
@@ -272,7 +272,7 @@ void Socket::init(const std::string& address,
 
 	mSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if (mSocket < 0)
-		WT_THROW("ERROR opening socket");
+		TCPBD_THROW("ERROR opening socket");
 
 
 	const int optionval = 1;
@@ -288,7 +288,7 @@ void Socket::init(const std::string& address,
 
     if (bind(mSocket, (struct sockaddr *) &serv_addr,
              sizeof(serv_addr)) < 0)
-             WT_THROW("ERROR on binding");
+             TCPBD_THROW("ERROR on binding");
 
 }
 
@@ -300,7 +300,7 @@ void Socket::sendBfr(const void* bfr, int size){
 		s = write(mSocket, (const char*)bfr+bytesWritten, size-bytesWritten);
 
 		if(s<=0){
-			WT_THROW("write failed");
+			TCPBD_THROW("write failed");
 		}
 
 		bytesWritten += s;
@@ -316,7 +316,7 @@ void Socket::recvBfr(void* bfr, int size){
 		r = read(mSocket, (char*)bfr+bytesRead, size-bytesRead);
 
 		if(r<=0){
-			WT_THROW("read failed %d / %d", r, size);
+			TCPBD_THROW("read failed %d / %d", r, size);
 		}
 
 		bytesRead += r;

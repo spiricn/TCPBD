@@ -11,66 +11,17 @@
 
 class Client : public Thread{
 public:
-	Client(uint16_t serverPort, uint16_t localPort, const std::string& remoteURL, uint16_t remotePort) : 
-	  mServerPort(serverPort), mLocalPort(localPort), mRemoteURL(remoteURL), mRemotePort(remotePort){
-
-		start();
-	}
+	Client(uint16_t serverPort, uint16_t localPort, const std::string& remoteURL, uint16_t remotePort);
 
 private:
+
+	void run();
+
 	uint16_t mServerPort;
 	uint16_t mLocalPort;
 	uint16_t mRemotePort;
 	std::string mRemoteURL;
 
-	void run(){
-		TCPServer server;
-
-		server.init("127.0.0.1", mServerPort);
-
-		LOGD("Waiting for connection..");
-
-		Socket* socket = server.acceptClient();
-
-		LOGD("Connection accepted");
-
-		Packet p;
-
-		p.write(mRemoteURL);
-		uint16_t port = mRemotePort;
-		p.write(port);
-
-		socket->sendPacket(p);
-
-		LOGV("Recieving response");
-		socket->recvPacket(p);
-
-		bool res;
-		p.read(&res);
-
-		if(res){
-			LOGI("Connection initialized");
-		}
-		else{
-			LOGE("Error initializign connection");
-			return;
-		}
-
-		TCPServer proxyServer;
-		proxyServer.init("127.0.0.1", mLocalPort);
-
-		LOGD("Accepting proxy connection @ %d", mLocalPort);
-
-		Socket* proxyConn = proxyServer.acceptClient();
-
-		LOGD("Proxy connection accepted, routing...");
-
-		SocketProxy socketProxy(proxyConn, socket);
-
-		socketProxy.wait();
-
-		LOGD("Client finished");
-	}
-};
+}; // </Client>
 
 #endif // </TCPBD_CLIENT_H>

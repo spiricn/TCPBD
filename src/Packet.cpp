@@ -27,8 +27,14 @@ void Packet::clear(){
 	mData = ByteBuffer();
 }
 
-void Packet::read(void* data, uint32_t size){
+bool Packet::read(void* data, uint32_t size){
+	if( (mData.getCapacity() - mData.tellg()) < size){
+		return false;
+	}
+
 	mData.get(static_cast<uint8_t*>(data), size);
+
+	return true;
 }
 
 void Packet::write(const void* data, uint32_t size){
@@ -36,12 +42,31 @@ void Packet::write(const void* data, uint32_t size){
 }
 
 void Packet::write(const std::string& val){
-	mData.put( reinterpret_cast<const uint8_t*>( val.c_str() ), val.size() + 1);
+	mData.put( reinterpret_cast<const uint8_t*>( val.c_str() ), val.size() + 1 );
 }
 
-void Packet::read(std::string* val){
-	// TODO probably not safe
-	*val = std::string( reinterpret_cast<char*>( mData.getData() + mData.tellg()  ) );
+bool Packet::read(std::string* val){
+	uint8_t* start = mData.getData() + mData.tellg();
+
+	bool found = false;
+
+	// Search for a NULL terminator
+	for(uint32_t i=0; i<mData.getCapacity() - mData.tellg(); i++){
+		if(start[i] == 0){
+			found = true;
+			break;
+		}
+	}
+
+	// No NULL terminator found, can't create string
+	if(!found){
+		return false;
+	}
+
+	*val = std::string( reinterpret_cast<char*>( start ) );
+
 	mData.seekg( mData.tellg() + val->size() + 1 );
+
+	return true;
 }
 
