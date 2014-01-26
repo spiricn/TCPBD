@@ -12,8 +12,9 @@
 
 //#define CLIENT_MODE
 //#define SERVER_MODE
-#define LOCAL_TEST_MODE
+//#define LOCAL_TEST_MODE
 //#define TEST_MODE
+
 
 #if defined(TEST_MODE)
 
@@ -32,6 +33,9 @@ int main(){
 #define REMOTE_URL "localhost"
 
 int main(){
+	FILE* logFile = fopen("tcpbd.log", "wb");
+	td_setFileOutput(logFile);
+
 	Socket::initializeLib();
 
 	Server srv("127.0.0.1", SERVER_PORT);
@@ -43,13 +47,13 @@ int main(){
 
 	srv.wait();
 }
-#elif defined(CLIENT_MODE)
+#elif defined(TCPBD_CLIENT_PROGRAM)
 
 int main(int argc, char* argv[]){
 	return TCPBDClientProgram(argc, argv);
 }
 
-#elif defined(SERVER_MODE)
+#elif defined(TCPBD_SERVER_PROGRAM)
 
 int main(int argc, char* argv[]){
 	return TCPBDServerProgram(argc, argv);

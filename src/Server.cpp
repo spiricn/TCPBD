@@ -2,21 +2,44 @@
 
 Server::Server(const std::string& clientAddress, uint16_t clientPort) : mServerAddress(clientAddress), mServerPort(clientPort), mSocket(NULL){
 	start();
+
+	mMainLoopThread = Thread(&Server::mainLoopThreadFnc, this);
+	mMainLoopThread.start();
 }
 
-void Server::reconnect(){
-	bool connected = false;
 
-	if(mSocket){
-		delete mSocket;
-	}
+void Server::deleteSession(ServerSession* session){
+	Message msg;
 
-	LOGD("Connecting to server...");
+	msg.type = Message::eTYPE_DELETE_SESSION;
+	msg.data.deleteSession.session = session;
 
-	mSocket = new Socket;
+	mMessageBox.queue(msg);
+}
 
-	while(!connected){
-		connected = mSocket->connectToServer(mServerAddress, mServerPort);
+void Server::mainLoopThreadFnc(void* arg){
+	Server* thiz = static_cast<Server*>(arg);
+
+	thiz->mainLoop();
+}
+
+void Server::mainLoop(){
+	while(true){
+		Message message = mMessageBox.dequeue();
+
+
+		mMutex.lock();
+
+		if(message.type == Message::eTYPE_DELETE_SESSION){
+			mSessions.erase(message.data.deleteSession.session);
+
+			// Wait for the server thread to finish
+			message.data.deleteSession.session->wait();
+
+			delete message.data.deleteSession.session;
+		}
+
+		mMutex.unlock();
 	}
 }
 
@@ -24,73 +47,25 @@ void Server::run(){
 	Packet packet;
 
 	while(true){
-		reconnect();
+		bool connected = false;
 
-		LOGV("Recieving connect command...");
+		LOGD("Connecting to server...");
 
-		try{
-			mSocket->recvPacket(packet);
-		}catch(...){
-			TRACEE("Error recieving packet");
-			continue;
+		Socket* socket = new Socket;
+
+		while(!connected){
+			connected = socket->connectToServer(mServerAddress, mServerPort);
 		}
 
-		std::string remoteUrl;
-		uint16_t remotePort;
+		LOGD("Connected to server");
 
-		if(!packet.read(&remoteUrl)){
-			continue;
-		}
+		mMutex.lock();
 
-		if(!packet.read(&remotePort)){
-			continue;
-		}
+		ServerSession* session = new ServerSession(this, socket);
+		session->start();
 
-		LOGD("Connect command recieved: url=\"%s\"; port=%u", remoteUrl.c_str(), remotePort);
+		mSessions.insert(session);
 
-		Socket proxySocket;
-
-		LOGV("Connecting to proxy");
-
-		if(proxySocket.connectToServer(remoteUrl, remotePort)){
-			LOGD("Connected to remote server");
-
-			// Send reply
-			packet.clear();
-			packet.write(true);
-
-			try{
-				mSocket->sendPacket(packet);
-			}catch(...){
-				continue;
-			}
-		}
-		else{
-			LOGE("Error connecting to remote server");
-
-			// Send reply
-			packet.clear();
-			packet.write(false);
-
-			try{
-				mSocket->sendPacket(packet);
-			}catch(...){
-			}
-
-			continue;
-		}
-
-		LOGV("Routing data..");
-
-
-		// Start proxiyng data
-		SocketProxy proxy(&proxySocket, mSocket);
-
-		// Wait until client or server disconnects
-		proxy.run();
-
-		LOGV("Server proxy finished");
+		mMutex.unlock();
 	}
-
-	LOGD("Server finished");
 }

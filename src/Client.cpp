@@ -1,4 +1,3 @@
-#define TD_DISABLED
 
 #include "Client.h"
 
@@ -6,66 +5,76 @@ Client::Client(uint16_t serverPort, uint16_t localPort, const std::string& remot
 	mServerPort(serverPort), mLocalPort(localPort), mRemoteURL(remoteURL), mRemotePort(remotePort){
 
 	start();
+
+	mMainLoopThread = Thread(&Client::mainLoopThreadFnc, this);
+	mMainLoopThread.start();
+}
+
+void Client::mainLoopThreadFnc(void* arg){
+	Client* thiz = static_cast<Client*>(arg);
+
+	thiz->mainLoop();
+}
+
+void Client::mainLoop(){
+	while(true){
+		Message message = mMessageBox.dequeue();
+
+
+		mMutex.lock();
+
+		if(message.type == Message::eTYPE_DELETE_SESSION){
+			mClientSessions.erase(message.data.deleteSession.session);
+
+			message.data.deleteSession.session->wait();
+
+			delete message.data.deleteSession.session;
+		}
+
+		mMutex.unlock();
+	}
+}
+
+
+void Client::deleteSession(ClientSession* session){
+	Message msg;
+
+	msg.type = Message::eTYPE_DELETE_SESSION;
+	msg.data.deleteSession.session = session;
+
+	mMessageBox.queue(msg);
+}
+
+Socket* Client::getRemoteServerConnection(){
+	// TODO timed accept
+	mServerMutex.lock();
+
+	Socket* res = mRemoteServer.acceptClient();
+
+	mServerMutex.unlock();
+
+	return res;
 }
 
 void Client::run(){
 	TCPServer server;
 
-	server.init("127.0.0.1", mServerPort);
+	mRemoteServer.init("localhost", mServerPort);
 
-	LOGD("Waiting for connection..");
+	server.init("localhost", mLocalPort);
 
-	Socket* socket = server.acceptClient();
+	while(true){
+		Socket* socket = server.acceptClient();
 
-	LOGD("Connection accepted");
+		LOGD("Connection accepted");
 
-	Packet p;
+		mMutex.lock();
 
-	p.write(mRemoteURL);
-	uint16_t port = mRemotePort;
-	p.write(port);
+		ClientSession* session = new ClientSession(this, socket, mServerPort, mRemoteURL, mRemotePort);
+		mClientSessions.insert(session);
 
-	try{
-		socket->sendPacket(p);
-	}catch(...){
-		TRACEE("Error sending connect command");
-		return;
+		session->start();
+
+		mMutex.unlock();
 	}
-
-	LOGV("Recieving response");
-
-
-	try{
-		socket->recvPacket(p);
-	}catch(...){
-		return;
-	}
-
-	bool res;
-	if(!p.read(&res)){
-		return;
-	}
-
-	if(res){
-		LOGI("Connection initialized");
-	}
-	else{
-		LOGE("Error initializign connection");
-		return;
-	}
-
-	TCPServer proxyServer;
-	proxyServer.init("127.0.0.1", mLocalPort);
-
-	LOGD("Accepting proxy connection @ %d", mLocalPort);
-
-	Socket* proxyConn = proxyServer.acceptClient();
-
-	LOGD("Proxy connection accepted, routing...");
-
-	SocketProxy socketProxy(proxyConn, socket);
-
-	socketProxy.run();
-
-	LOGD("Client finished");
 }
