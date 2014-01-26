@@ -58,7 +58,7 @@ Socket* TCPServer::acceptClient(){
             &clilen);
 
 	if(sockFd < 0){
-		WT_THROW("Error accepting client");
+		TCPBD_THROW("Error accepting client");
 	}
 
 	return new Socket(sockFd);

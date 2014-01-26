@@ -55,6 +55,28 @@ void Server::run(){
 
 		while(!connected){
 			connected = socket->connectToServer(mServerAddress, mServerPort);
+			Thread::sleep(1.0f);
+		}
+
+		bool connectionAccepted = true;
+
+		try{
+			Packet packet;
+			socket->recvPacket(packet);
+
+			bool res;
+
+			if(!packet.read(&res) || !res){
+				connectionAccepted = false;
+			}
+		}catch(...){
+			connectionAccepted = false;
+		}
+
+		if(!connectionAccepted){
+			LOGW("Connection rejected");
+			delete socket;
+			continue;
 		}
 
 		LOGD("Connected to server");

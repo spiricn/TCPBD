@@ -58,7 +58,6 @@ private:
 
 	ClientSessionSet mClientSessions;
 
-	TCPServer mRemoteServer;
 	Mutex mServerMutex;
 
 }; // </Client>

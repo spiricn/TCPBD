@@ -49,7 +49,16 @@ Socket* Client::getRemoteServerConnection(){
 	// TODO timed accept
 	mServerMutex.lock();
 
-	Socket* res = mRemoteServer.acceptClient();
+	TCPServer remoteServer;
+
+	remoteServer.init("localhost", mServerPort);
+
+	Socket* res = remoteServer.acceptClient();
+
+	Packet packet;
+	packet.write(true);
+
+	res->sendPacket(packet);
 
 	mServerMutex.unlock();
 
@@ -58,8 +67,6 @@ Socket* Client::getRemoteServerConnection(){
 
 void Client::run(){
 	TCPServer server;
-
-	mRemoteServer.init("localhost", mServerPort);
 
 	server.init("localhost", mLocalPort);
 

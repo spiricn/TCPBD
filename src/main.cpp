@@ -1,22 +1,19 @@
 #include <td/td.h>
-//
 #include "TCPServer.h"
 #include "Thread.h"
 #include "SocketProxy.h"
 #include "Client.h"
-
 #include "Server.h"
 #include "Client.h"
 #include "ClientProgram.h"
 #include "ServerProgram.h"
 
-//#define CLIENT_MODE
-//#define SERVER_MODE
-//#define LOCAL_TEST_MODE
-//#define TEST_MODE
-
 
 #if defined(TEST_MODE)
+
+#if defined(TCPBD_SERVER_PROGRAM) || defined(LOCAL_TEST_MODE) || defined(TCPBD_CLIENT_PROGRAM)
+	#error Only one mode may be enabled
+#endif
 
 int ClientServerTest_main();
 
@@ -31,6 +28,11 @@ int main(){
 #define LOCAL_PORT ( 13094 )
 #define REMOTE_PORT ( 22 )
 #define REMOTE_URL "localhost"
+
+#if defined(TEST_MODE) || defined(TCPBD_CLIENT_PROGRAM) || defined(TCPBD_SERVER_PROGRAM)
+	#error Only one mode may be enabled
+#endif
+
 
 int main(){
 	FILE* logFile = fopen("tcpbd.log", "wb");
@@ -49,11 +51,19 @@ int main(){
 }
 #elif defined(TCPBD_CLIENT_PROGRAM)
 
+#if defined(TEST_MODE) || defined(LOCAL_TEST_MODE) || defined(TCPBD_SERVER_PROGRAM)
+	#error Only one mode may be enabled
+#endif
+
 int main(int argc, char* argv[]){
 	return TCPBDClientProgram(argc, argv);
 }
 
 #elif defined(TCPBD_SERVER_PROGRAM)
+
+#if defined(TEST_MODE) || defined(LOCAL_TEST_MODE) || defined(TCPBD_CLIENT_PROGRAM)
+	#error Only one mode may be enabled
+#endif
 
 int main(int argc, char* argv[]){
 	return TCPBDServerProgram(argc, argv);

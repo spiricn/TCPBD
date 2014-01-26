@@ -62,112 +62,112 @@ CPP_DEPS += \
 src/Client.o: /home/spiricn/prog/workspace/TCPBD/src/Client.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/ClientProgram.o: /home/spiricn/prog/workspace/TCPBD/src/ClientProgram.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/ClientServerTest.o: /home/spiricn/prog/workspace/TCPBD/src/ClientServerTest.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/ClientSession.o: /home/spiricn/prog/workspace/TCPBD/src/ClientSession.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/ConditionVar.o: /home/spiricn/prog/workspace/TCPBD/src/ConditionVar.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/Exception.o: /home/spiricn/prog/workspace/TCPBD/src/Exception.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/Mutex.o: /home/spiricn/prog/workspace/TCPBD/src/Mutex.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/Packet.o: /home/spiricn/prog/workspace/TCPBD/src/Packet.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/Server.o: /home/spiricn/prog/workspace/TCPBD/src/Server.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/ServerProgram.o: /home/spiricn/prog/workspace/TCPBD/src/ServerProgram.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/ServerSession.o: /home/spiricn/prog/workspace/TCPBD/src/ServerSession.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/Socket.o: /home/spiricn/prog/workspace/TCPBD/src/Socket.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/SocketProxy.o: /home/spiricn/prog/workspace/TCPBD/src/SocketProxy.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/TCPServer.o: /home/spiricn/prog/workspace/TCPBD/src/TCPServer.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/Thread.o: /home/spiricn/prog/workspace/TCPBD/src/Thread.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/main.o: /home/spiricn/prog/workspace/TCPBD/src/main.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DLOCAL_TEST_MODE=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -DTCPBD_CLIENT_PROGRAM=1 -I"/home/spiricn/prog/workspace/TCPBD/include" -I/home/spiricn/prog/workspace/TraceDog/include -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
