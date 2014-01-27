@@ -51,7 +51,7 @@ Socket* Client::getRemoteServerConnection(){
 
 	TCPServer remoteServer;
 
-	remoteServer.init("localhost", mServerPort);
+	remoteServer.init("", mServerPort);
 
 	Socket* res = remoteServer.acceptClient();
 
@@ -68,7 +68,7 @@ Socket* Client::getRemoteServerConnection(){
 void Client::run(){
 	TCPServer server;
 
-	server.init("localhost", mLocalPort);
+	server.init("", mLocalPort);
 
 	while(true){
 		Socket* socket = server.acceptClient();
